@@ -8,7 +8,6 @@
     <tr>
         <th>Ngày /  Giờ</th>
         <th>Sản phẩm</th>
-        <th>Kích thước</th>
         <th>SL</th>
         <th>Thành tiền</th>
         <th>Địa chỉ</th>
@@ -22,7 +21,6 @@
         <tr>
             <td>@donHang.NgayGio</td>
             <td>@donHang.GioHang.SanPham.ToString()</td>
-            <td>@donHang.GioHang.SanPham.KichCo.TenGoi.ToString()</td>
             <td>@donHang.GioHang.SoLuong</td>
             <td>@Model.Sum(mh => mh.GioHang.DonGia * donHang.GioHang.SoLuong)</td>          
             <td>@donHang.DiaChi.ToString()</td>
