@@ -14,13 +14,19 @@ namespace WebApplication1.Models
     
     public partial class GioHang
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public GioHang()
+        {
+            this.DonHangs = new HashSet<DonHang>();
+        }
+    
         public int id { get; set; }
         public int idSanPham { get; set; }
-        public int idDonHang { get; set; }
         public decimal DonGia { get; set; }
         public int SoLuong { get; set; }
     
-        public virtual DonHang DonHang { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DonHang> DonHangs { get; set; }
         public virtual SanPham SanPham { get; set; }
     }
 }

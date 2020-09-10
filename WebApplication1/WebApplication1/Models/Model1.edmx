@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CS4PET1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CS4PET1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietSanPham">
           <Key>
             <PropertyRef Name="id" />
@@ -18,11 +18,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idGioHang" Type="int" Nullable="false" />
           <Property Name="HoTen" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="DienThoai" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="TinhThanh" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="QuanHuyen" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="NgayGio" Type="datetime" Nullable="false" />
           <Property Name="TrangThai" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
@@ -32,7 +31,6 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idSanPham" Type="int" Nullable="false" />
-          <Property Name="idDonHang" Type="int" Nullable="false" />
           <Property Name="DonGia" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="SoLuong" Type="int" Nullable="false" />
         </EntityType>
@@ -54,7 +52,7 @@
           <Property Name="DonGia" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="ThuongHieu" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <Association Name="FK__ChiTietSa__idSan__740F363E">
+        <Association Name="FK__ChiTietSa__idSan__184C96B4">
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
           <End Role="ChiTietSanPham" Type="Self.ChiTietSanPham" Multiplicity="*" />
           <ReferentialConstraint>
@@ -66,19 +64,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GioHang__idDonHa__79C80F94">
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
-          <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+        <Association Name="FK__DonHang__idGioHa__1FEDB87C">
+          <End Role="GioHang" Type="Self.GioHang" Multiplicity="1" />
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DonHang">
+            <Principal Role="GioHang">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="GioHang">
-              <PropertyRef Name="idDonHang" />
+            <Dependent Role="DonHang">
+              <PropertyRef Name="idGioHang" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GioHang__idSanPh__78D3EB5B">
+        <Association Name="FK__GioHang__idSanPh__1B29035F">
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
           <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
           <ReferentialConstraint>
@@ -90,7 +88,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SanPham__idKichC__6F4A8121">
+        <Association Name="FK__SanPham__idKichC__1387E197">
           <End Role="KichCo" Type="Self.KichCo" Multiplicity="1" />
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
           <ReferentialConstraint>
@@ -108,50 +106,71 @@
           <EntitySet Name="GioHang" EntityType="Self.GioHang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KichCo" EntityType="Self.KichCo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ChiTietSa__idSan__740F363E" Association="Self.FK__ChiTietSa__idSan__740F363E">
+          <AssociationSet Name="FK__ChiTietSa__idSan__184C96B4" Association="Self.FK__ChiTietSa__idSan__184C96B4">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="ChiTietSanPham" EntitySet="ChiTietSanPham" />
           </AssociationSet>
-          <AssociationSet Name="FK__GioHang__idDonHa__79C80F94" Association="Self.FK__GioHang__idDonHa__79C80F94">
-            <End Role="DonHang" EntitySet="DonHang" />
+          <AssociationSet Name="FK__DonHang__idGioHa__1FEDB87C" Association="Self.FK__DonHang__idGioHa__1FEDB87C">
             <End Role="GioHang" EntitySet="GioHang" />
+            <End Role="DonHang" EntitySet="DonHang" />
           </AssociationSet>
-          <AssociationSet Name="FK__GioHang__idSanPh__78D3EB5B" Association="Self.FK__GioHang__idSanPh__78D3EB5B">
+          <AssociationSet Name="FK__GioHang__idSanPh__1B29035F" Association="Self.FK__GioHang__idSanPh__1B29035F">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="GioHang" EntitySet="GioHang" />
           </AssociationSet>
-          <AssociationSet Name="FK__SanPham__idKichC__6F4A8121" Association="Self.FK__SanPham__idKichC__6F4A8121">
+          <AssociationSet Name="FK__SanPham__idKichC__1387E197" Association="Self.FK__SanPham__idKichC__1387E197">
             <End Role="KichCo" EntitySet="KichCo" />
             <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CS4PET1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CS4PET1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChiTietSanPhams" EntityType="CS4PET1Model.ChiTietSanPham" />
+          <EntitySet Name="DonHangs" EntityType="CS4PET1Model.DonHang" />
+          <EntitySet Name="GioHangs" EntityType="CS4PET1Model.GioHang" />
+          <EntitySet Name="KichCoes" EntityType="CS4PET1Model.KichCo" />
+          <EntitySet Name="SanPhams" EntityType="CS4PET1Model.SanPham" />
+          <AssociationSet Name="FK__ChiTietSa__idSan__184C96B4" Association="CS4PET1Model.FK__ChiTietSa__idSan__184C96B4">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="ChiTietSanPham" EntitySet="ChiTietSanPhams" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonHang__idGioHa__1FEDB87C" Association="CS4PET1Model.FK__DonHang__idGioHa__1FEDB87C">
+            <End Role="GioHang" EntitySet="GioHangs" />
+            <End Role="DonHang" EntitySet="DonHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GioHang__idSanPh__1B29035F" Association="CS4PET1Model.FK__GioHang__idSanPh__1B29035F">
+            <End Role="SanPham" EntitySet="SanPhams" />
+            <End Role="GioHang" EntitySet="GioHangs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SanPham__idKichC__1387E197" Association="CS4PET1Model.FK__SanPham__idKichC__1387E197">
+            <End Role="KichCo" EntitySet="KichCoes" />
+            <End Role="SanPham" EntitySet="SanPhams" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="ChiTietSanPham">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idSanPham" Type="Int32" Nullable="false" />
-          <Property Name="ThongTinSanPham" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="SanPham" Relationship="Self.FK__ChiTietSa__idSan__740F363E" FromRole="ChiTietSanPham" ToRole="SanPham" />
+          <Property Name="ThongTinSanPham" Type="String" Nullable="false" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SanPham" Relationship="CS4PET1Model.FK__ChiTietSa__idSan__184C96B4" FromRole="ChiTietSanPham" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="DonHang">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DienThoai" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TinhThanh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="QuanHuyen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idGioHang" Type="Int32" Nullable="false" />
+          <Property Name="HoTen" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DienThoai" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DiaChi" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="NgayGio" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TrangThai" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="GioHangs" Relationship="Self.FK__GioHang__idDonHa__79C80F94" FromRole="DonHang" ToRole="GioHang" />
+          <Property Name="TrangThai" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GioHang" Relationship="CS4PET1Model.FK__DonHang__idGioHa__1FEDB87C" FromRole="DonHang" ToRole="GioHang" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
@@ -159,37 +178,36 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idSanPham" Type="Int32" Nullable="false" />
-          <Property Name="idDonHang" Type="Int32" Nullable="false" />
-          <Property Name="DonGia" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DonGia" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="SoLuong" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="DonHang" Relationship="Self.FK__GioHang__idDonHa__79C80F94" FromRole="GioHang" ToRole="DonHang" />
-          <NavigationProperty Name="SanPham" Relationship="Self.FK__GioHang__idSanPh__78D3EB5B" FromRole="GioHang" ToRole="SanPham" />
+          <NavigationProperty Name="DonHangs" Relationship="CS4PET1Model.FK__DonHang__idGioHa__1FEDB87C" FromRole="GioHang" ToRole="DonHang" />
+          <NavigationProperty Name="SanPham" Relationship="CS4PET1Model.FK__GioHang__idSanPh__1B29035F" FromRole="GioHang" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="KichCo">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenGoi" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="SanPhams" Relationship="Self.FK__SanPham__idKichC__6F4A8121" FromRole="KichCo" ToRole="SanPham" />
+          <Property Name="TenGoi" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SanPhams" Relationship="CS4PET1Model.FK__SanPham__idKichC__1387E197" FromRole="KichCo" ToRole="SanPham" />
         </EntityType>
         <EntityType Name="SanPham">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenSanPham" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TenSanPham" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="idKichCo" Type="Int32" Nullable="false" />
           <Property Name="SoLuong" Type="Int32" Nullable="false" />
-          <Property Name="DonGia" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="ThuongHieu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ChiTietSanPhams" Relationship="Self.FK__ChiTietSa__idSan__740F363E" FromRole="SanPham" ToRole="ChiTietSanPham" />
-          <NavigationProperty Name="GioHangs" Relationship="Self.FK__GioHang__idSanPh__78D3EB5B" FromRole="SanPham" ToRole="GioHang" />
-          <NavigationProperty Name="KichCo" Relationship="Self.FK__SanPham__idKichC__6F4A8121" FromRole="SanPham" ToRole="KichCo" />
+          <Property Name="DonGia" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="ThuongHieu" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChiTietSanPhams" Relationship="CS4PET1Model.FK__ChiTietSa__idSan__184C96B4" FromRole="SanPham" ToRole="ChiTietSanPham" />
+          <NavigationProperty Name="GioHangs" Relationship="CS4PET1Model.FK__GioHang__idSanPh__1B29035F" FromRole="SanPham" ToRole="GioHang" />
+          <NavigationProperty Name="KichCo" Relationship="CS4PET1Model.FK__SanPham__idKichC__1387E197" FromRole="SanPham" ToRole="KichCo" />
         </EntityType>
-        <Association Name="FK__ChiTietSa__idSan__740F363E">
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
-          <End Role="ChiTietSanPham" Type="Self.ChiTietSanPham" Multiplicity="*" />
+        <Association Name="FK__ChiTietSa__idSan__184C96B4">
+          <End Type="CS4PET1Model.SanPham" Role="SanPham" Multiplicity="1" />
+          <End Type="CS4PET1Model.ChiTietSanPham" Role="ChiTietSanPham" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SanPham">
               <PropertyRef Name="id" />
@@ -199,21 +217,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GioHang__idDonHa__79C80F94">
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
-          <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+        <Association Name="FK__DonHang__idGioHa__1FEDB87C">
+          <End Type="CS4PET1Model.GioHang" Role="GioHang" Multiplicity="1" />
+          <End Type="CS4PET1Model.DonHang" Role="DonHang" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DonHang">
+            <Principal Role="GioHang">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="GioHang">
-              <PropertyRef Name="idDonHang" />
+            <Dependent Role="DonHang">
+              <PropertyRef Name="idGioHang" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GioHang__idSanPh__78D3EB5B">
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="1" />
-          <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+        <Association Name="FK__GioHang__idSanPh__1B29035F">
+          <End Type="CS4PET1Model.SanPham" Role="SanPham" Multiplicity="1" />
+          <End Type="CS4PET1Model.GioHang" Role="GioHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SanPham">
               <PropertyRef Name="id" />
@@ -223,9 +241,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SanPham__idKichC__6F4A8121">
-          <End Role="KichCo" Type="Self.KichCo" Multiplicity="1" />
-          <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+        <Association Name="FK__SanPham__idKichC__1387E197">
+          <End Type="CS4PET1Model.KichCo" Role="KichCo" Multiplicity="1" />
+          <End Type="CS4PET1Model.SanPham" Role="SanPham" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KichCo">
               <PropertyRef Name="id" />
@@ -235,30 +253,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CS4PET1Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ChiTietSanPhams" EntityType="Self.ChiTietSanPham" />
-          <EntitySet Name="DonHangs" EntityType="Self.DonHang" />
-          <EntitySet Name="GioHangs" EntityType="Self.GioHang" />
-          <EntitySet Name="KichCoes" EntityType="Self.KichCo" />
-          <EntitySet Name="SanPhams" EntityType="Self.SanPham" />
-          <AssociationSet Name="FK__ChiTietSa__idSan__740F363E" Association="Self.FK__ChiTietSa__idSan__740F363E">
-            <End Role="SanPham" EntitySet="SanPhams" />
-            <End Role="ChiTietSanPham" EntitySet="ChiTietSanPhams" />
-          </AssociationSet>
-          <AssociationSet Name="FK__GioHang__idDonHa__79C80F94" Association="Self.FK__GioHang__idDonHa__79C80F94">
-            <End Role="DonHang" EntitySet="DonHangs" />
-            <End Role="GioHang" EntitySet="GioHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__GioHang__idSanPh__78D3EB5B" Association="Self.FK__GioHang__idSanPh__78D3EB5B">
-            <End Role="SanPham" EntitySet="SanPhams" />
-            <End Role="GioHang" EntitySet="GioHangs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SanPham__idKichC__6F4A8121" Association="Self.FK__SanPham__idKichC__6F4A8121">
-            <End Role="KichCo" EntitySet="KichCoes" />
-            <End Role="SanPham" EntitySet="SanPhams" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -267,54 +262,52 @@
           <EntitySetMapping Name="ChiTietSanPhams">
             <EntityTypeMapping TypeName="CS4PET1Model.ChiTietSanPham">
               <MappingFragment StoreEntitySet="ChiTietSanPham">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
                 <ScalarProperty Name="ThongTinSanPham" ColumnName="ThongTinSanPham" />
+                <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DonHangs">
             <EntityTypeMapping TypeName="CS4PET1Model.DonHang">
               <MappingFragment StoreEntitySet="DonHang">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
-                <ScalarProperty Name="TinhThanh" ColumnName="TinhThanh" />
-                <ScalarProperty Name="QuanHuyen" ColumnName="QuanHuyen" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="NgayGio" ColumnName="NgayGio" />
                 <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="NgayGio" ColumnName="NgayGio" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="DienThoai" ColumnName="DienThoai" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="idGioHang" ColumnName="idGioHang" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GioHangs">
             <EntityTypeMapping TypeName="CS4PET1Model.GioHang">
               <MappingFragment StoreEntitySet="GioHang">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
-                <ScalarProperty Name="idDonHang" ColumnName="idDonHang" />
-                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="idSanPham" ColumnName="idSanPham" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KichCoes">
             <EntityTypeMapping TypeName="CS4PET1Model.KichCo">
               <MappingFragment StoreEntitySet="KichCo">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="TenGoi" ColumnName="TenGoi" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SanPhams">
             <EntityTypeMapping TypeName="CS4PET1Model.SanPham">
               <MappingFragment StoreEntitySet="SanPham">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
-                <ScalarProperty Name="idKichCo" ColumnName="idKichCo" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="ThuongHieu" ColumnName="ThuongHieu" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="idKichCo" ColumnName="idKichCo" />
+                <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,0 +1,13 @@
+﻿@model WebApplication1.Models.DonHang
+@{
+  ViewBag.Title = "XacnhanDonHang";
+}
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(sp => sp.TrangThai)
+        @Html.TextBoxFor(sp => sp.TrangThai, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu xác nhận</button>
+    <a href="~/DanhSachDonHang/DSDonHang">| Quay lại</a>
+}

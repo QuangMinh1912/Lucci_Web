@@ -14,22 +14,14 @@ namespace WebApplication1.Models
     
     public partial class DonHang
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DonHang()
-        {
-            this.GioHangs = new HashSet<GioHang>();
-        }
-    
         public int id { get; set; }
+        public int idGioHang { get; set; }
         public string HoTen { get; set; }
         public string DienThoai { get; set; }
-        public string TinhThanh { get; set; }
-        public string QuanHuyen { get; set; }
         public string DiaChi { get; set; }
         public System.DateTime NgayGio { get; set; }
         public string TrangThai { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GioHang> GioHangs { get; set; }
+        public virtual GioHang GioHang { get; set; }
     }
 }
