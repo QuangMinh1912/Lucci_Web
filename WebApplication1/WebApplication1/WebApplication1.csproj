@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DanhSachDonHangController.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KichCoController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
@@ -231,6 +232,8 @@
     <Content Include="Views\SanPham\Index.cshtml" />
     <Content Include="Views\DanhSachDonHang\DSDonHang.cshtml" />
     <Content Include="Views\DanhSachDonHang\XacnhanDonHang.cshtml" />
+    <Content Include="Views\GioHang\Index.cshtml" />
+    <Content Include="Views\DanhSachDonHang\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,35 @@
+﻿@model List<WebApplication1.Models.GioHang>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Thông tin giỏ hàng của bạn</h2>
+
+<table>
+    <tr>
+        <th>Tên sản phẩm</th>
+        <th>Giá tiền</th>
+        <th>Số lượng</th>
+        <th>Thành tiền</th>
+    </tr>
+    @foreach (var monHang in Model)
+    {
+        <tr>
+            <td>@monHang.SanPham.TenSanPham</td>
+            <td>@monHang.SanPham.DonGia</td>
+            <td>1</td>
+            <td>@(monHang.SanPham.DonGia * 1)</td>
+        </tr>
+    }
+</table>
+
+<div>
+    Tổng tiền: @Model.Sum(mh => mh.SanPham.DonGia * 1)
+</div>
+@if (Model.Count > 0)
+{
+<div>
+    <a href="~/DanhSachDonHang/Create" class="btn btn-success">Đặt hàng</a>
+    <a href="~/SanPham/Index">Quay lại</a>
+</div>
+}
+
